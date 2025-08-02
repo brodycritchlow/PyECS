@@ -1,16 +1,16 @@
 from collections.abc import Iterator
-from common.Types import UUID4, Component, Entity
+from common.Types import UUID4, Component, Entity, OperationResult
 
 class Archetype(object):
     def __init__(self):
         self.entities: list[UUID4] = []
         self.components: list[list[Component]] = []
 
-    def add_entity(self, entity: Entity, components: list[Component]):
+    def add_entity(self, entity: Entity, components: list[Component]) -> OperationResult:
         # TODO: Implement proper add entity logic
         ...
 
-    def remove_entity(self, entity: Entity):
+    def remove_entity(self, entity: Entity) -> OperationResult:
         # TODO: Implement proper remove entity logic
         ...
 
