@@ -1,5 +1,5 @@
 from typing import Literal
-from common.Types import UUID4, Component, Entity, OperationResult
+from common.Types import UUID4, Component, Entity, SuccessOrFailure
 from containers.Archetype import Archetype
 from helpers.Statuses import StatusCodes
 
@@ -24,10 +24,10 @@ class ComponentStorage(object):
         # TODO: Implement has component logic
         ...
 
-    def move_entity_to_archetype(self, entity: Entity, new_mask: frozenset[type]) -> OperationResult:
+    def move_entity_to_archetype(self, entity: Entity, new_mask: frozenset[type]) -> SuccessOrFailure:
         # TODO: Implement move entity to archetype logic
         ...
 
-    def remove_entity(self, entity: Entity) -> OperationResult: 
+    def remove_entity(self, entity: Entity) -> SuccessOrFailure: 
         # TODO: Implement remove entity logic
         ...
