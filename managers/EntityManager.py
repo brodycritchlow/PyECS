@@ -1,8 +1,7 @@
 from random import randbytes
 from typing import Literal
 from helpers.Statuses import StatusCodes
-
-type UUID4 = str
+from common.Types import UUID4, Entity
 
 class EntityManager(object):
     def __init__(self):
@@ -35,11 +34,32 @@ class EntityManager(object):
             rb[10:16].hex()
         ])
 
-    def create_entity(self, entity: UUID4) -> tuple[Literal[StatusCodes.ENTITY_CREATED], UUID4] | Literal[StatusCodes.FAILURE]:
+    def create_entity(self, entity: Entity) -> tuple[Literal[StatusCodes.ENTITY_CREATED], Entity] | Literal[StatusCodes.FAILURE]:
+        """
+        Create a new entity in the entity component system.
+
+        This method generates a unique UUID4 identifier for the entity and registers it
+        in the alive_entities set.
+
+        Returns a tuple containing ENTITY_CREATED status and the new entity UUID on success,
+        or FAILURE status if entity creation fails.
+        """
+
         # TODO: Implement entity creation logic
         new_entity: UUID4 = self.unique_id()
         return (StatusCodes.ENTITY_CREATED, new_entity)
 
-    def destroy_entity(self, entity: UUID4) -> Literal[StatusCodes.ENTITY_DESTROYED, StatusCodes.FAILURE]:
+    def destroy_entity(self, entity: Entity) -> Literal[StatusCodes.ENTITY_DESTROYED, StatusCodes.FAILURE]:
+        """
+        Remove an entity from the entity component system.
+
+        This method removes the specified entity UUID from the alive_entities set and
+        triggers cleanup of all associated components. The entity becomes invalid after
+        this operation and should not be used in subsequent operations.
+
+        Returns ENTITY_DESTROYED status on successful removal, or FAILURE status if
+        the entity does not exist or destruction fails.
+        """
+        
         # TODO: Implement entity destroy logic
         return StatusCodes.ENTITY_DESTROYED
