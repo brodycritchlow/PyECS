@@ -1,6 +1,9 @@
-from typing import Protocol
+from __future__ import annotations
 
-from core.World import ECSWorld
+from typing import TYPE_CHECKING, Protocol
+
+if TYPE_CHECKING:
+    from core.World import ECSWorld
 
 
 class System(Protocol):

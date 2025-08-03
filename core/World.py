@@ -27,7 +27,14 @@ class ECSWorld(object):
         result = self.entity_manager.create_entity()
         if isinstance(result, tuple):
             entity = result[1]
-            self.component_storage.entity_to_archetype[entity] = frozenset()
+            empty_mask: frozenset[type] = frozenset()
+
+            if empty_mask not in self.component_storage.archetypes:
+                from containers.Archetype import Archetype
+
+                self.component_storage.archetypes[empty_mask] = Archetype()
+
+            self.component_storage.entity_to_archetype[entity] = empty_mask
             return entity
         return result
 
