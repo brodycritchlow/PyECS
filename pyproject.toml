@@ -59,6 +59,7 @@ select = [
 ]
 ignore = [
     "E501", # line too long (handled by formatter)
+    "UP004", # Class inherits from object (Python 3 default)
 ]
 
 [tool.pyright]
