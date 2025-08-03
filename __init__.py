@@ -3,25 +3,25 @@ from beartype.claw import beartype_this_package
 
 beartype_this_package()
 
-from .managers.EntityManager import EntityManager
-from .containers.ComponentStorage import ComponentStorage
+from .common.Types import UUID4, Component, Entity, SuccessOrFailure
 from .containers.Archetype import Archetype
-from .querying.Query import Query
+from .containers.ComponentStorage import ComponentStorage
 from .core.World import ECSWorld
-from .common.Types import UUID4, Entity, Component, SuccessOrFailure
 from .helpers.Statuses import StatusCodes
+from .managers.EntityManager import EntityManager
+from .querying.Query import Query
 
 __all__ = [
-    'EntityManager',
-    'ComponentStorage', 
-    'Archetype',
-    'Query',
-    'ECSWorld',
     'UUID4',
-    'Entity',
+    'Archetype',
     'Component',
-    'SuccessOrFailure',
+    'ComponentStorage',
+    'ECSWorld',
+    'Entity',
+    'EntityManager',
+    'Query',
     'StatusCodes',
+    'SuccessOrFailure',
 ]
 
 __version__ = '0.1.0'
