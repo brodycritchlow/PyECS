@@ -35,7 +35,7 @@ class ComponentStorage(object):
             components: list[Component] = self.get_entity_components(entity)
             components.append(component)
 
-            self.move_entity_to_archetype(entity, new_mask, components)
+            _ = self.move_entity_to_archetype(entity, new_mask, components)
 
             return StatusCodes.COMPONENT_ADDED
         else:
@@ -73,11 +73,11 @@ class ComponentStorage(object):
                     comp = current_archetype.get_component(entity, comp_type)
                     components.append(comp)
 
-            self.move_entity_to_archetype(entity, new_mask, components)
+            _ = self.move_entity_to_archetype(entity, new_mask, components)
 
             return StatusCodes.COMPONENT_REMOVED
         else:
-            self.remove_entity(entity)
+            _ = self.remove_entity(entity)
             return StatusCodes.COMPONENT_REMOVED
 
     def get_component[T: Component](
@@ -130,7 +130,7 @@ class ComponentStorage(object):
             if components is None:
                 components = self.get_entity_components(entity)
 
-            current_archetype.remove_entity(entity)
+            _ = current_archetype.remove_entity(entity)
         else:
             if components is None:
                 components = []
@@ -139,7 +139,7 @@ class ComponentStorage(object):
             self.archetypes[new_mask] = Archetype()
 
         target_archetype = self.archetypes[new_mask]
-        target_archetype.add_entity(entity, components)
+        _ = target_archetype.add_entity(entity, components)
 
         self.entity_to_archetype[entity] = new_mask
 
@@ -159,7 +159,7 @@ class ComponentStorage(object):
 
         mask: frozenset[type] = self.entity_to_archetype[entity]
         archetype = self.archetypes[mask]
-        archetype.remove_entity(entity)
+        _ = archetype.remove_entity(entity)
         del self.entity_to_archetype[entity]
 
         return StatusCodes.SUCCESS

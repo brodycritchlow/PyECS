@@ -1,3 +1,5 @@
+# pyright: reportMissingParameterType=false
+# pyright: reportUnknownParameterType=false
 from __future__ import annotations
 
 from random import randbytes
@@ -109,4 +111,4 @@ class SystemManager(object):
         specific logic during this update cycle.
         """
         for system in self.systems:
-            system.update(world, dt)
+            system.update(world, dt)  # pyright: ignore[reportUnknownMemberType, reportUnknownArgumentType]

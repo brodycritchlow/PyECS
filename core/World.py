@@ -1,3 +1,4 @@
+# pyright: reportImportCycles=false
 from typing import Literal
 
 from pyecs.common.Types import Component, Entity
@@ -49,7 +50,7 @@ class ECSWorld(object):
         """
         result = self.entity_manager.destroy_entity(entity)
         if result == StatusCodes.ENTITY_DESTROYED:
-            self.component_storage.remove_entity(entity)
+            _ = self.component_storage.remove_entity(entity)
 
     def add_component(self, entity: Entity, component: Component) -> None:
         """
@@ -61,7 +62,7 @@ class ECSWorld(object):
         Only adds the component if the entity is currently alive in the world.
         """
         if self.entity_manager.is_alive(entity):
-            self.component_storage.add_component(entity, component)
+            _ = self.component_storage.add_component(entity, component)
 
     def remove_component(self, entity: Entity, component_type: type[Component]) -> None:
         """
@@ -73,7 +74,7 @@ class ECSWorld(object):
         Only removes the component if the entity is currently alive in the world.
         """
         if self.entity_manager.is_alive(entity):
-            self.component_storage.remove_component(entity, component_type)
+            _ = self.component_storage.remove_component(entity, component_type)
 
     def get_component(
         self, entity: Entity, component_type: type[Component]
@@ -102,7 +103,7 @@ class ECSWorld(object):
         """
         result = self.system_manager.register_system(system)
         if isinstance(result, tuple):
-            system.init(self)
+            system.init(self)  # pyright: ignore[reportUnknownMemberType]
 
     def remove_system(self, system: System) -> None:
         """
@@ -113,8 +114,8 @@ class ECSWorld(object):
 
         The system will no longer be executed during world update cycles.
         """
-        system.cleanup(self)
-        self.system_manager.remove_system(system)
+        system.cleanup(self)  # pyright: ignore[reportUnknownMemberType]
+        _ = self.system_manager.remove_system(system)
 
     def update(self, dt: float) -> None:
         """
@@ -125,4 +126,4 @@ class ECSWorld(object):
 
         This is typically called once per frame in the main game loop.
         """
-        self.system_manager.update_all(self, dt)
+        self.system_manager.update_all(self, dt)  # pyright: ignore[reportUnknownMemberType]
