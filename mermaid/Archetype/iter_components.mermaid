@@ -1,0 +1,8 @@
+flowchart TD
+    Start([iter_components called with component_type]) --> CheckTypeExists{Component type in components dict?}
+    
+    CheckTypeExists -->|Yes| YieldComponents[Yield from components list for type]
+    CheckTypeExists -->|No| YieldNothing[Yield nothing]
+    
+    YieldComponents --> End1([End])
+    YieldNothing --> End2([End])

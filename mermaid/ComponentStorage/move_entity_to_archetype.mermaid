@@ -1,0 +1,33 @@
+flowchart TD
+    Start([move_entity_to_archetype called]) --> CheckEntityExists{Entity in entity_to_archetype?}
+    
+    CheckEntityExists -->|Yes| GetCurrentMask[Get current mask]
+    CheckEntityExists -->|No| CheckComponentsParam{Components parameter provided?}
+    
+    GetCurrentMask --> GetCurrentArchetype[Get current archetype]
+    GetCurrentArchetype --> CheckComponentsProvided{Components parameter provided?}
+    
+    CheckComponentsProvided -->|No| GetEntityComponents[Call get_entity_components]
+    CheckComponentsProvided -->|Yes| UseProvidedComponents[Use provided components]
+    
+    GetEntityComponents --> RemoveFromCurrent[Remove entity from current archetype]
+    UseProvidedComponents --> RemoveFromCurrent
+    
+    CheckComponentsParam -->|No| SetEmptyComponents[Set components = empty list]
+    CheckComponentsParam -->|Yes| UseProvided[Use provided components]
+    
+    SetEmptyComponents --> CheckArchetypeExists{New mask in archetypes?}
+    UseProvided --> CheckArchetypeExists
+    RemoveFromCurrent --> CheckArchetypeExists
+    
+    CheckArchetypeExists -->|No| CreateArchetype[Create new Archetype]
+    CheckArchetypeExists -->|Yes| GetTargetArchetype[Get target archetype]
+    
+    CreateArchetype --> AddToArchetypes[Add to archetypes dict]
+    AddToArchetypes --> GetTargetArchetype
+    
+    GetTargetArchetype --> AddEntity[Call target_archetype.add_entity]
+    AddEntity --> UpdateMapping[Update entity_to_archetype mapping]
+    UpdateMapping --> ReturnSuccess[Return SUCCESS]
+    
+    ReturnSuccess --> End([End])

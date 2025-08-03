@@ -1,0 +1,12 @@
+flowchart TD
+    Start([create_entity called]) --> Lock[Acquire thread lock]
+    
+    Lock --> GenerateUUID[Generate unique UUID4]
+    GenerateUUID --> AddToSet[Add UUID to alive_entities set]
+    
+    AddToSet --> CreateTuple[Create tuple with ENTITY_CREATED status and UUID]
+    CreateTuple --> ReleaseLock[Release thread lock]
+    
+    ReleaseLock --> ReturnSuccess[Return tuple]
+    
+    ReturnSuccess --> End([End])

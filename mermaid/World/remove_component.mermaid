@@ -1,0 +1,7 @@
+flowchart TD
+    Start([remove_component called with entity and component_type]) --> CheckAlive{entity_manager.is_alive?}
+    
+    CheckAlive -->|Yes| CallRemoveComponent[Call component_storage.remove_component]
+    CheckAlive -->|No| End1([End])
+    
+    CallRemoveComponent --> End2([End])

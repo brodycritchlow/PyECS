@@ -1,0 +1,17 @@
+flowchart TD
+    Start([get_component called with entity and component_type]) --> CheckEntity{Entity in entity_to_archetype?}
+    
+    CheckEntity -->|No| ReturnFailure1[Return FAILURE]
+    CheckEntity -->|Yes| GetMask[Get entity archetype mask]
+    
+    GetMask --> GetArchetype[Get archetype from mask]
+    GetArchetype --> CheckHasComponent{Component type in mask?}
+    
+    CheckHasComponent -->|No| ReturnFailure2[Return FAILURE]
+    CheckHasComponent -->|Yes| CallArchetypeGet[Call archetype.get_component]
+    
+    CallArchetypeGet --> ReturnComponent[Return component instance]
+    
+    ReturnFailure1 --> End1([End])
+    ReturnFailure2 --> End2([End])
+    ReturnComponent --> End3([End])

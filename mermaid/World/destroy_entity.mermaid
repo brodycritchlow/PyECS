@@ -1,0 +1,9 @@
+flowchart TD
+    Start([destroy_entity called with entity]) --> CallEntityManager[Call entity_manager.destroy_entity]
+    
+    CallEntityManager --> CheckResult{Result == ENTITY_DESTROYED?}
+    
+    CheckResult -->|Yes| RemoveComponents[Call component_storage.remove_entity]
+    CheckResult -->|No| End1([End])
+    
+    RemoveComponents --> End2([End])

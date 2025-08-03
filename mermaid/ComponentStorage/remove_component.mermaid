@@ -1,0 +1,36 @@
+flowchart TD
+    Start([remove_component called with entity and component_type]) --> CheckEntity{Entity in entity_to_archetype?}
+    
+    CheckEntity -->|No| ReturnFailure1[Return FAILURE]
+    CheckEntity -->|Yes| GetMask[Get current archetype mask]
+    
+    GetMask --> GetArchetype[Get current archetype]
+    GetArchetype --> CheckHasComponent{Component type in mask?}
+    
+    CheckHasComponent -->|No| ReturnFailure2[Return FAILURE]
+    CheckHasComponent -->|Yes| CreateNewMask[Create new mask without component type]
+    
+    CreateNewMask --> CheckMaskEmpty{New mask empty?}
+    
+    CheckMaskEmpty -->|No| GetRemainingComponents[Get all components except removed type]
+    CheckMaskEmpty -->|Yes| RemoveEntity[Call self.remove_entity]
+    
+    GetRemainingComponents --> LoopComponents[Loop through mask types]
+    LoopComponents --> CheckNotRemoved{Type != removed type?}
+    
+    CheckNotRemoved -->|Yes| GetComponent[Get component from archetype]
+    CheckNotRemoved -->|No| SkipComponent[Skip this component]
+    
+    GetComponent --> AppendToList[Append to components list]
+    AppendToList --> LoopComponents
+    SkipComponent --> LoopComponents
+    
+    LoopComponents --> MoveEntity[Call move_entity_to_archetype with new mask]
+    MoveEntity --> ReturnRemoved1[Return COMPONENT_REMOVED]
+    
+    RemoveEntity --> ReturnRemoved2[Return COMPONENT_REMOVED]
+    
+    ReturnFailure1 --> End1([End])
+    ReturnFailure2 --> End2([End])
+    ReturnRemoved1 --> End3([End])
+    ReturnRemoved2 --> End4([End])

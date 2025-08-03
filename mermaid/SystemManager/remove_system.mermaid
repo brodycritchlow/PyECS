@@ -1,0 +1,11 @@
+flowchart TD
+    Start([remove_system called with system]) --> CheckExists{System in system_to_id?}
+    
+    CheckExists -->|No| ReturnFailure[Return FAILURE]
+    CheckExists -->|Yes| GetSystemId[Get system_id from system_to_id]
+    
+    GetSystemId --> CallUnregister[Call unregister_system with system_id]
+    CallUnregister --> ReturnResult[Return unregister result]
+    
+    ReturnFailure --> End1([End])
+    ReturnResult --> End2([End])

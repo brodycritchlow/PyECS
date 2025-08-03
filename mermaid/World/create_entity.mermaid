@@ -1,0 +1,22 @@
+flowchart TD
+    Start([create_entity called]) --> CallEntityManager[Call entity_manager.create_entity]
+    
+    CallEntityManager --> CheckResult{Result is tuple?}
+    
+    CheckResult -->|Yes| ExtractEntity[Extract entity from tuple index 1]
+    CheckResult -->|No| ReturnFailure[Return result as FAILURE]
+    
+    ExtractEntity --> CreateEmptyMask[Create empty frozenset mask]
+    CreateEmptyMask --> CheckArchetypeExists{Empty mask in archetypes?}
+    
+    CheckArchetypeExists -->|No| ImportArchetype[Import Archetype class]
+    CheckArchetypeExists -->|Yes| SetMapping[Set entity_to_archetype mapping]
+    
+    ImportArchetype --> CreateArchetype[Create new Archetype instance]
+    CreateArchetype --> AddToArchetypes[Add to component_storage.archetypes]
+    AddToArchetypes --> SetMapping
+    
+    SetMapping --> ReturnEntity[Return entity]
+    
+    ReturnFailure --> End1([End])
+    ReturnEntity --> End2([End])

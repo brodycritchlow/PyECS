@@ -1,0 +1,10 @@
+flowchart TD
+    Start([get_component called with entity and component_type]) --> CheckAlive{entity_manager.is_alive?}
+    
+    CheckAlive -->|Yes| CallGetComponent[Call component_storage.get_component]
+    CheckAlive -->|No| ReturnFailure[Return FAILURE]
+    
+    CallGetComponent --> ReturnResult[Return component or FAILURE]
+    
+    ReturnFailure --> End1([End])
+    ReturnResult --> End2([End])

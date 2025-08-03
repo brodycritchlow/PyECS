@@ -1,0 +1,14 @@
+flowchart TD
+    Start([get_entity_components called with entity]) --> GetMask[Get entity mask from entity_to_archetype]
+    
+    GetMask --> GetArchetype[Get archetype from mask]
+    GetArchetype --> InitList[Initialize empty components list]
+    
+    InitList --> LoopTypes[Loop through component types in mask]
+    LoopTypes --> GetComponent[Call archetype.get_component for type]
+    
+    GetComponent --> AppendComponent[Append component to list]
+    AppendComponent --> LoopTypes
+    
+    LoopTypes --> ReturnList[Return components list]
+    ReturnList --> End([End])

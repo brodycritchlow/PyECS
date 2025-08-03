@@ -1,0 +1,14 @@
+flowchart TD
+    Start([has_component called with entity and component_type]) --> CheckEntity{Entity in entity_to_archetype?}
+    
+    CheckEntity -->|No| ReturnFalse[Return False]
+    CheckEntity -->|Yes| GetMask[Get entity archetype mask]
+    
+    GetMask --> CheckInMask{Component type in mask?}
+    
+    CheckInMask -->|No| ReturnFalse2[Return False]
+    CheckInMask -->|Yes| ReturnTrue[Return True]
+    
+    ReturnFalse --> End1([End])
+    ReturnFalse2 --> End2([End])
+    ReturnTrue --> End3([End])

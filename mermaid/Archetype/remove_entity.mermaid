@@ -1,0 +1,17 @@
+flowchart TD
+    Start([remove_entity called with entity]) --> CheckExists{Entity in entities list?}
+    
+    CheckExists -->|No| ReturnFailure[Return FAILURE]
+    CheckExists -->|Yes| FindIndex[Find entity index in list]
+    
+    FindIndex --> RemoveFromEntities[Remove entity from entities list]
+    RemoveFromEntities --> LoopComponentLists[Loop through all component lists]
+    
+    LoopComponentLists --> DeleteAtIndex[Delete component at entity_index]
+    DeleteAtIndex --> MoreLists{More component lists?}
+    
+    MoreLists -->|Yes| LoopComponentLists
+    MoreLists -->|No| ReturnSuccess[Return SUCCESS]
+    
+    ReturnFailure --> End1([End])
+    ReturnSuccess --> End2([End])

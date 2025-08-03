@@ -1,0 +1,15 @@
+flowchart TD
+    Start([register_system called with system]) --> CheckExists{System in system_to_id?}
+    
+    CheckExists -->|Yes| ReturnFailure[Return FAILURE]
+    CheckExists -->|No| GenerateUUID[Call _unique_id to generate UUID]
+    
+    GenerateUUID --> AppendSystem[Append system to systems list]
+    AppendSystem --> MapSystemToId[Add to system_to_id mapping]
+    MapSystemToId --> MapIdToSystem[Add to id_to_system mapping]
+    
+    MapIdToSystem --> CreateTuple[Create tuple with SYSTEM_REGISTERED and system]
+    CreateTuple --> ReturnTuple[Return tuple]
+    
+    ReturnFailure --> End1([End])
+    ReturnTuple --> End2([End])

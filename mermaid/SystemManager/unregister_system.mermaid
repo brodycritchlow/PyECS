@@ -1,0 +1,14 @@
+flowchart TD
+    Start([unregister_system called with id]) --> CheckIdExists{ID in id_to_system?}
+    
+    CheckIdExists -->|No| ReturnFailure[Return FAILURE]
+    CheckIdExists -->|Yes| GetSystem[Get system from id_to_system]
+    
+    GetSystem --> RemoveFromList[Remove system from systems list]
+    RemoveFromList --> DeleteSystemToId[Delete from system_to_id mapping]
+    DeleteSystemToId --> DeleteIdToSystem[Delete from id_to_system mapping]
+    
+    DeleteIdToSystem --> ReturnUnregistered[Return SYSTEM_UNREGISTERED]
+    
+    ReturnFailure --> End1([End])
+    ReturnUnregistered --> End2([End])

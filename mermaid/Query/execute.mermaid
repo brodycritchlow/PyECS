@@ -1,0 +1,21 @@
+flowchart TD
+    Start([execute called with storage]) --> InitList[Initialize empty matching list]
+    
+    InitList --> LoopArchetypes[Loop through storage.archetypes items]
+    LoopArchetypes --> GetMaskAndArch[Get mask and archetype]
+    
+    GetMaskAndArch --> CheckWith{_with subset of mask?}
+    
+    CheckWith -->|No| NextArchetype[Continue to next archetype]
+    CheckWith -->|Yes| CheckWithout{_without intersects mask?}
+    
+    CheckWithout -->|Yes| NextArchetype
+    CheckWithout -->|No| ExtendMatching[Extend matching with archetype.entities]
+    
+    NextArchetype --> MoreArchetypes{More archetypes?}
+    ExtendMatching --> MoreArchetypes
+    
+    MoreArchetypes -->|Yes| LoopArchetypes
+    MoreArchetypes -->|No| ReturnMatching[Return matching list]
+    
+    ReturnMatching --> End([End])

@@ -1,0 +1,8 @@
+flowchart TD
+    Start([update_all called with world and dt]) --> LoopSystems[Loop through systems list]
+    
+    LoopSystems --> CallUpdate[Call system.update with world and dt]
+    CallUpdate --> MoreSystems{More systems?}
+    
+    MoreSystems -->|Yes| LoopSystems
+    MoreSystems -->|No| End([End])

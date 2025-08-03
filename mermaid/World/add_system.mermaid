@@ -1,0 +1,9 @@
+flowchart TD
+    Start([add_system called with system]) --> RegisterSystem[Call system_manager.register_system]
+    
+    RegisterSystem --> CheckResult{Result is tuple?}
+    
+    CheckResult -->|Yes| InitSystem[Call system.init with self]
+    CheckResult -->|No| End1([End])
+    
+    InitSystem --> End2([End])

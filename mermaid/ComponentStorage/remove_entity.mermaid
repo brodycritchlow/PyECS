@@ -1,0 +1,14 @@
+flowchart TD
+    Start([remove_entity called with entity]) --> CheckEntity{Entity in entity_to_archetype?}
+    
+    CheckEntity -->|No| ReturnFailure[Return FAILURE]
+    CheckEntity -->|Yes| GetMask[Get entity archetype mask]
+    
+    GetMask --> GetArchetype[Get archetype from mask]
+    GetArchetype --> RemoveFromArchetype[Call archetype.remove_entity]
+    
+    RemoveFromArchetype --> DeleteMapping[Delete from entity_to_archetype]
+    DeleteMapping --> ReturnSuccess[Return SUCCESS]
+    
+    ReturnFailure --> End1([End])
+    ReturnSuccess --> End2([End])

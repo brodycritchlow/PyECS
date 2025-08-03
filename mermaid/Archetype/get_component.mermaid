@@ -1,0 +1,16 @@
+flowchart TD
+    Start([get_component called with entity and component_type]) --> CheckEntity{Entity in entities list?}
+    
+    CheckEntity -->|No| ReturnFailure1[Return FAILURE]
+    CheckEntity -->|Yes| FindIndex[Find entity index]
+    
+    FindIndex --> CheckTypeExists{Component type in components dict?}
+    
+    CheckTypeExists -->|No| ReturnFailure2[Return FAILURE]
+    CheckTypeExists -->|Yes| GetFromList[Get component from type list at entity_index]
+    
+    GetFromList --> ReturnComponent[Return component instance]
+    
+    ReturnFailure1 --> End1([End])
+    ReturnFailure2 --> End2([End])
+    ReturnComponent --> End3([End])

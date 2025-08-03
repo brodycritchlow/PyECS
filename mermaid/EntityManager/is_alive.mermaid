@@ -1,0 +1,13 @@
+flowchart TD
+    Start([is_alive called with entity]) --> Lock[Acquire thread lock]
+    
+    Lock --> CheckInSet{Entity in alive_entities?}
+    
+    CheckInSet -->|Yes| ReturnTrue[Return True]
+    CheckInSet -->|No| ReturnFalse[Return False]
+    
+    ReturnTrue --> ReleaseLock1[Release thread lock]
+    ReturnFalse --> ReleaseLock2[Release thread lock]
+    
+    ReleaseLock1 --> End1([End])
+    ReleaseLock2 --> End2([End])

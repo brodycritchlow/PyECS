@@ -1,0 +1,6 @@
+flowchart TD
+    Start([remove_system called with system]) --> CleanupSystem[Call system.cleanup with self]
+    
+    CleanupSystem --> RemoveFromManager[Call system_manager.remove_system]
+    
+    RemoveFromManager --> End([End])

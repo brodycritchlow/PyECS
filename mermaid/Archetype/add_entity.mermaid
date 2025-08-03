@@ -1,0 +1,25 @@
+flowchart TD
+    Start([add_entity called with entity and components list]) --> CheckExists{Entity in entities list?}
+    
+    CheckExists -->|Yes| ReturnFailure[Return FAILURE]
+    CheckExists -->|No| AppendEntity[Append entity to entities list]
+    
+    AppendEntity --> CalcIndex[Calculate entity_index as length - 1]
+    CalcIndex --> LoopComponents[Loop through components]
+    
+    LoopComponents --> GetCompType[Get component.__class__]
+    GetCompType --> CheckTypeExists{Component type in self.components?}
+    
+    CheckTypeExists -->|No| CreateList[Create list with None * entity_index]
+    CheckTypeExists -->|Yes| AppendToList[Append component to type list]
+    
+    CreateList --> AddToDict[Add list to components dict]
+    AddToDict --> AppendToList
+    
+    AppendToList --> MoreComponents{More components?}
+    
+    MoreComponents -->|Yes| LoopComponents
+    MoreComponents -->|No| ReturnSuccess[Return SUCCESS]
+    
+    ReturnFailure --> End1([End])
+    ReturnSuccess --> End2([End])

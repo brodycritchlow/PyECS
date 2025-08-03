@@ -1,0 +1,15 @@
+flowchart TD
+    Start([destroy_entity called with entity UUID]) --> Lock[Acquire thread lock]
+    
+    Lock --> CheckExists{Entity in alive_entities?}
+    
+    CheckExists -->|No| ReturnFailure[Return FAILURE status]
+    CheckExists -->|Yes| RemoveEntity[Remove entity from alive_entities set]
+    
+    RemoveEntity --> ReturnDestroyed[Return ENTITY_DESTROYED status]
+    
+    ReturnFailure --> ReleaseLock1[Release thread lock]
+    ReturnDestroyed --> ReleaseLock2[Release thread lock]
+    
+    ReleaseLock1 --> End1([End])
+    ReleaseLock2 --> End2([End])
