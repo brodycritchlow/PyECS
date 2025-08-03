@@ -41,7 +41,8 @@ dev = [
 "Bug Tracker" = "https://github.com/brodycritchlow/pyecs/issues"
 
 [tool.setuptools]
-packages = ["common", "containers", "core", "helpers", "managers", "processing", "querying"]
+package-dir = {"pyecs" = "."}
+packages = ["pyecs", "pyecs.common", "pyecs.containers", "pyecs.core", "pyecs.helpers", "pyecs.managers", "pyecs.processing", "pyecs.querying"]
 
 [tool.ruff]
 target-version = "py312"
@@ -72,6 +73,8 @@ typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
 reportPrivateUsage = false
+include = ["**/*.py"]
+extraPaths = ["."]
 
 [tool.mypy]
 python_version = "3.12"

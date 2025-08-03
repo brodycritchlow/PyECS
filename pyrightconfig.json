@@ -1,0 +1,13 @@
+{
+  "include": ["**/*.py"],
+  "pythonVersion": "3.12",
+  "venvPath": ".",
+  "venv": ".venv",
+  "extraPaths": [".."],
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": [".."]
+    }
+  ]
+}
