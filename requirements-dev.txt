@@ -5,3 +5,4 @@ pytest-cov>=4.0
 mypy>=1.0
 ruff>=0.1.0
 basedpyright>=1.0.0
+setuptools>=61.0

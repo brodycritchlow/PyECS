@@ -1,9 +1,8 @@
 from typing import Literal
 
-from System import System
-
 from common.Types import UUID4
 from helpers.Statuses import StatusCodes
+from processing.System import System
 
 
 class SystemManager(object):
