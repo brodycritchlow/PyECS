@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
 if TYPE_CHECKING:
-    from pyecs.core.World import ECSWorld
+    from pyecs.core.World import ECSWorld  # pyright: ignore[reportUnusedImport]  # noqa: F401
 
 
 @runtime_checkable

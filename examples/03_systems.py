@@ -7,10 +7,10 @@ Systems implement the System protocol and process entities each frame.
 from dataclasses import dataclass
 from typing import Literal
 
-from common.Types import Component, Entity
-from core.World import ECSWorld
-from helpers.Statuses import StatusCodes
-from querying.Query import Query
+from pyecs.common.Types import Component, Entity
+from pyecs.core.World import ECSWorld
+from pyecs.helpers.Statuses import StatusCodes
+from pyecs.querying.Query import Query
 
 
 @dataclass
@@ -26,10 +26,10 @@ class PrintPositionSystem:
     def required_components(self) -> set[type]:
         return {Position}
 
-    def init(self, world: ECSWorld) -> None:
+    def init(self, world: ECSWorld) -> None:  # pyright: ignore[reportUnusedParameter]
         print("PrintPositionSystem initialized!")
 
-    def update(self, world: ECSWorld, dt: float) -> None:
+    def update(self, world: ECSWorld, dt: float) -> None:  # pyright: ignore[reportUnusedParameter]
         query: Query = Query().with_components(Position)
         entities: list[Entity] = query.execute(world.component_storage)
 
@@ -38,7 +38,7 @@ class PrintPositionSystem:
             if isinstance(pos, Position):
                 print(f"Entity {entity[:8]} at ({pos.x}, {pos.y})")
 
-    def cleanup(self, world: ECSWorld) -> None:
+    def cleanup(self, world: ECSWorld) -> None:  # pyright: ignore[reportUnusedParameter]
         print("PrintPositionSystem cleaned up!")
 
 

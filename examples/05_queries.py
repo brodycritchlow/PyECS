@@ -8,10 +8,10 @@ or don't have.
 from dataclasses import dataclass
 from typing import Literal
 
-from common.Types import Entity
-from core.World import ECSWorld
-from helpers.Statuses import StatusCodes
-from querying.Query import Query
+from pyecs.common.Types import Entity
+from pyecs.core.World import ECSWorld
+from pyecs.helpers.Statuses import StatusCodes
+from pyecs.querying.Query import Query
 
 
 @dataclass

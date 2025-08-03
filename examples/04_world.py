@@ -8,9 +8,9 @@ a clean API for all ECS operations.
 from dataclasses import dataclass
 from typing import Literal
 
-from common.Types import Component, Entity
-from core.World import ECSWorld
-from helpers.Statuses import StatusCodes
+from pyecs.common.Types import Component, Entity
+from pyecs.core.World import ECSWorld
+from pyecs.helpers.Statuses import StatusCodes
 
 
 @dataclass
