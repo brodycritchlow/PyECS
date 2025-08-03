@@ -7,7 +7,7 @@
   
 PyECS is a high-performance, type-safe Entity Component System (ECS) implementation in Python with runtime validation via [beartype](https://github.com/beartype/beartype).
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.12+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![ECS](https://img.shields.io/badge/pattern-ECS-orange.svg)
 ![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)
@@ -36,3 +36,4 @@ PyECS is a high-performance, type-safe Entity Component System (ECS) implementat
 - [Examples](examples/)
 - [License](#license)
 </div>
+
