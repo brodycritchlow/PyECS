@@ -5,14 +5,23 @@ from containers.ComponentStorage import ComponentStorage
 
 
 class Query(object):
+    def __init__(self):
+        self._with: set[type[Component]] = set()
+        self._without: set[type[Component]] = set()
+
     def with_components(self, *types: type[Component]) -> Query:
-        # TODO: Implement proper query condition logic
-        ...
+        self._with.update(types)
+        return self
 
     def without_components(self, *types: type[Component]) -> Query:
-        # TODO: Implement proper query condition logic
-        ...
+        self._without.update(types)
+        return self
 
     def execute(self, storage: ComponentStorage) -> list[Entity]:
-        # TODO: Implement proper query execution logic
-        ...
+        matching: list[Entity] = []
+
+        for mask, archetype in storage.archetypes.items():
+            if self._with.issubset(mask) and not self._without.intersection(mask):
+                matching.extend(archetype.entities)
+
+        return matching
