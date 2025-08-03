@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
 if TYPE_CHECKING:
-    from core.World import ECSWorld
+    from pyecs.core.World import ECSWorld
 
 
+@runtime_checkable
 class System(Protocol):
     @property
     def required_components(self) -> set[type]:
@@ -21,7 +22,7 @@ class System(Protocol):
         """
         ...
 
-    def init(self, world: ECSWorld) -> None:
+    def init(self, world) -> None:
         """
         Initialize the system when added to the world.
 
@@ -34,7 +35,7 @@ class System(Protocol):
         """
         ...
 
-    def update(self, world: ECSWorld, dt: float) -> None:
+    def update(self, world, dt: float) -> None:
         """
         Process system logic for the current frame.
 
@@ -47,7 +48,7 @@ class System(Protocol):
         """
         ...
 
-    def cleanup(self, world: ECSWorld) -> None:
+    def cleanup(self, world) -> None:
         """
         Clean up system resources when removed from the world.
 

@@ -7,9 +7,6 @@ from pyecs.common.Types import UUID4
 from pyecs.helpers.Statuses import StatusCodes
 from pyecs.processing.System import System
 
-if TYPE_CHECKING:
-    from core.World import ECSWorld
-
 
 class SystemManager(object):
     def __init__(self):
@@ -101,7 +98,7 @@ class SystemManager(object):
             return self.unregister_system(system_id)
         return StatusCodes.FAILURE
 
-    def update_all(self, world: ECSWorld, dt: float) -> None:
+    def update_all(self, world, dt: float) -> None:
         """
         Execute the update method for all registered systems.
 
