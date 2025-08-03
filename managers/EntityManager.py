@@ -30,15 +30,13 @@ class EntityManager(object):
         rb[7] = (rb[7] & 0x0F) | 0x40
         rb[9] = (rb[9] & 0x3F) | 0x80
 
-        return '-'.join([
-            rb[:4].hex(),
-            rb[4:6].hex(),
-            rb[6:8].hex(),
-            rb[8:10].hex(),
-            rb[10:16].hex()
-        ])
+        return "-".join(
+            [rb[:4].hex(), rb[4:6].hex(), rb[6:8].hex(), rb[8:10].hex(), rb[10:16].hex()]
+        )
 
-    def create_entity(self) -> tuple[Literal[StatusCodes.ENTITY_CREATED], Entity] | Literal[StatusCodes.FAILURE]:
+    def create_entity(
+        self,
+    ) -> tuple[Literal[StatusCodes.ENTITY_CREATED], Entity] | Literal[StatusCodes.FAILURE]:
         """
         Create a new entity in the entity component system.
 
@@ -56,7 +54,9 @@ class EntityManager(object):
 
             return (StatusCodes.ENTITY_CREATED, new_entity)
 
-    def destroy_entity(self, entity: Entity) -> Literal[StatusCodes.ENTITY_DESTROYED, StatusCodes.FAILURE]:
+    def destroy_entity(
+        self, entity: Entity
+    ) -> Literal[StatusCodes.ENTITY_DESTROYED, StatusCodes.FAILURE]:
         """
         Remove an entity from the entity component system.
 

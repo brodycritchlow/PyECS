@@ -1,3 +1,3 @@
 from .Statuses import StatusCodes
 
-__all__ = ['StatusCodes']
+__all__ = ["StatusCodes"]

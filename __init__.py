@@ -12,16 +12,16 @@ from .managers.EntityManager import EntityManager
 from .querying.Query import Query
 
 __all__ = [
-    'UUID4',
-    'Archetype',
-    'Component',
-    'ComponentStorage',
-    'ECSWorld',
-    'Entity',
-    'EntityManager',
-    'Query',
-    'StatusCodes',
-    'SuccessOrFailure',
+    "UUID4",
+    "Archetype",
+    "Component",
+    "ComponentStorage",
+    "ECSWorld",
+    "Entity",
+    "EntityManager",
+    "Query",
+    "StatusCodes",
+    "SuccessOrFailure",
 ]
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"
