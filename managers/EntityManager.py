@@ -76,5 +76,11 @@ class EntityManager(object):
             return StatusCodes.ENTITY_DESTROYED
 
     def is_alive(self, entity: Entity) -> bool:
+        """
+        Check if an entity is currently alive in the system.
+
+        Returns True if the entity exists in the alive_entities set,
+        False otherwise.
+        """
         with self._lock:
             return entity in self.alive_entities
