@@ -3,9 +3,9 @@ from __future__ import annotations
 from random import randbytes
 from typing import TYPE_CHECKING, Literal
 
-from common.Types import UUID4
-from helpers.Statuses import StatusCodes
-from processing.System import System
+from pyecs.common.Types import UUID4
+from pyecs.helpers.Statuses import StatusCodes
+from pyecs.processing.System import System
 
 if TYPE_CHECKING:
     from core.World import ECSWorld

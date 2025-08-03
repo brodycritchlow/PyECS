@@ -1,11 +1,12 @@
 from typing import Literal
 
-from common.Types import Component, Entity
-from containers.ComponentStorage import ComponentStorage
-from helpers.Statuses import StatusCodes
-from managers.EntityManager import EntityManager
-from managers.SystemManager import SystemManager
-from processing.System import System
+from pyecs.common.Types import Component, Entity
+from pyecs.containers.Archetype import Archetype
+from pyecs.containers.ComponentStorage import ComponentStorage
+from pyecs.helpers.Statuses import StatusCodes
+from pyecs.managers.EntityManager import EntityManager
+from pyecs.managers.SystemManager import SystemManager
+from pyecs.processing.System import System
 
 
 class ECSWorld(object):
@@ -30,8 +31,6 @@ class ECSWorld(object):
             empty_mask: frozenset[type] = frozenset()
 
             if empty_mask not in self.component_storage.archetypes:
-                from containers.Archetype import Archetype
-
                 self.component_storage.archetypes[empty_mask] = Archetype()
 
             self.component_storage.entity_to_archetype[entity] = empty_mask

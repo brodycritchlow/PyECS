@@ -1,6 +1,6 @@
 from typing import Literal
 
-from helpers.Statuses import StatusCodes
+from pyecs.helpers.Statuses import StatusCodes
 
 type UUID4 = str
 type Entity = UUID4

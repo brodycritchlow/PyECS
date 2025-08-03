@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from common.Types import Component, Entity
-from containers.ComponentStorage import ComponentStorage
+from pyecs.common.Types import Component, Entity
+from pyecs.containers.ComponentStorage import ComponentStorage
 
 
 class Query(object):

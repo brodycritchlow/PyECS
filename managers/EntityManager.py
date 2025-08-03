@@ -2,8 +2,8 @@ import threading
 from random import randbytes
 from typing import Literal
 
-from common.Types import UUID4, Entity
-from helpers.Statuses import StatusCodes
+from pyecs.common.Types import UUID4, Entity
+from pyecs.helpers.Statuses import StatusCodes
 
 
 class EntityManager(object):

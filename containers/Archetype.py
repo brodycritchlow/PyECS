@@ -1,8 +1,8 @@
 from collections.abc import Iterator
 from typing import Literal
 
-from common.Types import UUID4, Component, Entity, SuccessOrFailure
-from helpers.Statuses import StatusCodes
+from pyecs.common.Types import UUID4, Component, Entity, SuccessOrFailure
+from pyecs.helpers.Statuses import StatusCodes
 
 
 class Archetype(object):
