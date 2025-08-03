@@ -1,13 +1,17 @@
+import threading
 from random import randbytes
 from typing import Literal
-from helpers.Statuses import StatusCodes
+
 from common.Types import UUID4, Entity
+from helpers.Statuses import StatusCodes
+
 
 class EntityManager(object):
     def __init__(self):
-        self.alive_entities: set[UUID4]
+        self.alive_entities: set[UUID4] = set()
+        self._lock: threading.Lock = threading.Lock()
 
-    def unique_id(self) -> UUID4:
+    def _unique_id(self) -> UUID4:
         """
         Generate a Version 4 UUID according to RFC 9562 specification.
 
@@ -21,7 +25,7 @@ class EntityManager(object):
 
         Reference: https://digitalbunker.dev/understanding-how-uuids-are-generated/
         """
-        rb: bytearray = bytearray(randbytes(128))
+        rb: bytearray = bytearray(randbytes(16))
 
         rb[7] = (rb[7] & 0x0F) | 0x40
         rb[9] = (rb[9] & 0x3F) | 0x80
@@ -34,20 +38,23 @@ class EntityManager(object):
             rb[10:16].hex()
         ])
 
-    def create_entity(self, entity: Entity) -> tuple[Literal[StatusCodes.ENTITY_CREATED], Entity] | Literal[StatusCodes.FAILURE]:
+    def create_entity(self) -> tuple[Literal[StatusCodes.ENTITY_CREATED], Entity] | Literal[StatusCodes.FAILURE]:
         """
         Create a new entity in the entity component system.
 
         This method generates a unique UUID4 identifier for the entity and registers it
         in the alive_entities set.
 
-        Returns a tuple containing ENTITY_CREATED status and the new entity UUID on success,
-        or FAILURE status if entity creation fails.
+        Returns a tuple containing ENTITY_CREATED status and the new entity UUID on success.
+        FAILURE is typed for future expansion purposes only; currently cannot be returned.
         """
 
-        # TODO: Implement entity creation logic
-        new_entity: UUID4 = self.unique_id()
-        return (StatusCodes.ENTITY_CREATED, new_entity)
+        with self._lock:
+            new_entity: UUID4 = self._unique_id()
+
+            self.alive_entities.add(new_entity)
+
+            return (StatusCodes.ENTITY_CREATED, new_entity)
 
     def destroy_entity(self, entity: Entity) -> Literal[StatusCodes.ENTITY_DESTROYED, StatusCodes.FAILURE]:
         """
@@ -60,6 +67,14 @@ class EntityManager(object):
         Returns ENTITY_DESTROYED status on successful removal, or FAILURE status if
         the entity does not exist or destruction fails.
         """
-        
-        # TODO: Implement entity destroy logic
-        return StatusCodes.ENTITY_DESTROYED
+
+        with self._lock:
+            if entity not in self.alive_entities:
+                return StatusCodes.FAILURE
+
+            self.alive_entities.remove(entity)
+            return StatusCodes.ENTITY_DESTROYED
+
+    def is_alive(self, entity: Entity) -> bool:
+        with self._lock:
+            return entity in self.alive_entities
