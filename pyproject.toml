@@ -74,7 +74,9 @@ reportMissingImports = true
 reportMissingTypeStubs = false
 reportPrivateUsage = false
 include = ["**/*.py"]
-extraPaths = ["."]
+executionEnvironments = [
+    { root = ".", pythonVersion = "3.12", extraPaths = ["."] }
+]
 
 [tool.mypy]
 python_version = "3.12"

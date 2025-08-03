@@ -29,6 +29,7 @@ jobs:
         pip install ruff basedpyright
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install -e .
+        python -c "import pyecs; print(f'PyECS installed at: {pyecs.__file__}')"
     
     - name: Run Ruff
       run: |
@@ -39,7 +40,6 @@ jobs:
       if: failure() && github.event_name == 'pull_request'
       id: ruff_diff
       run: |
-        # Create temporary file for the comment
         COMMENT_FILE=$(mktemp)
         
         echo "## Ruff Suggested Fixes" >> $COMMENT_FILE
@@ -59,7 +59,6 @@ jobs:
         ruff format . --diff >> $COMMENT_FILE 2>&1 || true
         echo '```' >> $COMMENT_FILE
         
-        # Save comment content as output
         echo "comment_body<<EOF" >> $GITHUB_OUTPUT
         cat $COMMENT_FILE >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
@@ -85,4 +84,7 @@ jobs:
     
     - name: Run basedpyright
       run: |
-        basedpyright .
+        mkdir -p /tmp/pyecs_parent
+        ln -s $(pwd) /tmp/pyecs_parent/pyecs
+        cd /tmp/pyecs_parent/pyecs
+        basedpyright --pythonpath $(which python)

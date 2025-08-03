@@ -4,10 +4,6 @@
   "venvPath": ".",
   "venv": ".venv",
   "extraPaths": [".."],
-  "executionEnvironments": [
-    {
-      "root": ".",
-      "extraPaths": [".."]
-    }
-  ]
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false
 }
