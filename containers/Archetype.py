@@ -1,5 +1,7 @@
 from collections.abc import Iterator
+
 from common.Types import UUID4, Component, Entity, SuccessOrFailure
+
 
 class Archetype(object):
     def __init__(self):

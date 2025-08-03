@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class StatusCodes(IntEnum):
     ENTITY_CREATED = 100
     ENTITY_DESTROYED = 101

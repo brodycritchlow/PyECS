@@ -16,9 +16,9 @@ class EntityManager(object):
         Generate a Version 4 UUID according to RFC 9562 specification.
 
         UUIDv4 uses 122 random bits with 6 reserved bits for version and variant:
-        - Byte 7 (time_hi_and_version): Sets version to 4 by clearing upper 4 bits 
+        - Byte 7 (time_hi_and_version): Sets version to 4 by clearing upper 4 bits
             and setting bit 6 (0x40) through (byte & 0x0F) | 0x40
-        - Byte 9 (clock_seq_hi_and_reserved): Sets variant to RFC 9562 by clearing 
+        - Byte 9 (clock_seq_hi_and_reserved): Sets variant to RFC 9562 by clearing
             upper 2 bits and setting bit 7 (0x80) through (byte & 0x3F) | 0x80
 
         Returns a canonical UUID string in 8-4-4-4-12 format.
