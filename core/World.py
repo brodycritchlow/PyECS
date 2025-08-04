@@ -4,6 +4,7 @@ from typing import Literal
 from pyecs.common.Types import Component, Entity
 from pyecs.containers.Archetype import Archetype
 from pyecs.containers.ComponentStorage import ComponentStorage
+from pyecs.helpers.Deprecation import warn_deprecated
 from pyecs.helpers.Statuses import StatusCodes
 from pyecs.managers.EntityManager import EntityManager
 from pyecs.managers.SystemManager import SystemManager
@@ -91,6 +92,37 @@ class ECSWorld(object):
         if self.entity_manager.is_alive(entity):
             return self.component_storage.get_component(entity, component_type)
         return StatusCodes.FAILURE
+
+    def get_components(
+        self, entity: Entity, *component_types: type[Component]
+    ) -> tuple[Component, ...] | Literal[StatusCodes.FAILURE]:
+        """
+        Retrieve multiple specific components from an entity.
+
+        This method returns a tuple of each component instance of the specified types
+        attached to the entity.
+
+        Returns a tuple of components if all are found, or FAILURE if the entity
+        doesn't exist or doesn't have any of the specified component types.
+        """
+        if len(component_types) == 1:
+            warn_deprecated(message="Use get_component for single component retrieval")
+            component = self.get_component(entity, component_types[0])
+            if component == StatusCodes.FAILURE:
+                return StatusCodes.FAILURE
+            return (component,)
+
+        if not self.entity_manager.is_alive(entity):
+            return StatusCodes.FAILURE
+
+        result: list[Component] = []
+        for component_type in component_types:
+            component = self.component_storage.get_component(entity, component_type)
+            if component == StatusCodes.FAILURE:
+                return StatusCodes.FAILURE
+            result.append(component)
+
+        return tuple(result)
 
     def add_system(self, system: System) -> None:
         """
