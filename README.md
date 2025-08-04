@@ -11,29 +11,73 @@ PyECS is a high-performance, type-safe Entity Component System (ECS) implementat
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![ECS](https://img.shields.io/badge/pattern-ECS-orange.svg)
 ![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://brodycritchlow.github.io/pyecs/)
 
 <br clear="left"/>
 
 ---
 
-- [Features](#features)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Core Concepts](#core-concepts)
-  - [Entities](#entities)
-  - [Components](#components)
-  - [Systems](#systems)
-  - [World](#world)
-  - [Queries](#queries)
-  - [Archetypes](#archetypes)
-- [Type Safety](#type-safety)
-  - [Runtime Validation](#runtime-validation)
-  - [Static Type Checking](#static-type-checking)
-- [Development](#development)
-  - [Project Structure](#project-structure)
-  - [Running Tests](#running-tests)
-  - [Contributing](#contributing)
-- [Examples](examples/)
-- [License](#license)
-</div>
+### Documentation
+
+Full documentation is available at [brodycritchlow.github.io/pyecs](https://brodycritchlow.github.io/pyecs/)
+
+### Features
+
+- **Type-safe** - Runtime type checking with beartype ensures component and system integrity
+- **Fast** - Archetype-based storage for efficient component queries
+- **Pythonic** - Clean, intuitive API that follows Python conventions
+- **Pure Python** - No C extensions or complex dependencies
+- **Well-tested** - Comprehensive test suite with high coverage
+
+### Quick Start
+
+### Installation
+
+```bash
+pip install pyecs
+```
+
+### Development
+
+### Setup Development Environment
+
+```bash
+git clone https://github.com/brodycritchlow/pyecs.git
+cd pyecs
+
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+pip install -r requirements-dev.txt
+pip install -e .
+```
+
+### Building Documentation
+
+```bash
+pip install -e ".[docs]"
+
+make docs-build
+make docs-serve
+```
+
+### Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Acknowledgments
+
+- Type safety powered by [beartype](https://github.com/beartype/beartype)
+
+---
 
