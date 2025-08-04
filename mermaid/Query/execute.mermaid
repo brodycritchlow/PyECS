@@ -1,5 +1,14 @@
 flowchart TD
-    Start([execute called with storage]) --> InitList[Initialize empty matching list]
+    Start([execute called with storage_or_world]) --> CheckType{Is ComponentStorage?}
+    
+    CheckType -->|Yes| WarnDeprecated[warn_deprecated: Passing ComponentStorage directly is deprecated]
+    CheckType -->|No| GetStorage[Get component_storage from world]
+    
+    WarnDeprecated --> SetStorage1[storage = storage_or_world]
+    GetStorage --> SetStorage2[storage = storage_or_world.component_storage]
+    
+    SetStorage1 --> InitList[Initialize empty matching list]
+    SetStorage2 --> InitList
     
     InitList --> LoopArchetypes[Loop through storage.archetypes items]
     LoopArchetypes --> GetMaskAndArch[Get mask and archetype]
