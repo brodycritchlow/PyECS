@@ -13,6 +13,12 @@ from .common.Types import UUID4, Component, Entity, SuccessOrFailure
 from .containers.Archetype import Archetype
 from .containers.ComponentStorage import ComponentStorage
 from .core.World import ECSWorld
+from .exceptions import (
+    ComponentNotFoundError,
+    EntityNotFoundError,
+    OperationFailedError,
+    PyECSError,
+)
 from .helpers.Statuses import StatusCodes
 from .managers.EntityManager import EntityManager
 from .querying.Query import Query
@@ -28,6 +34,10 @@ __all__ = [
     "Query",
     "StatusCodes",
     "SuccessOrFailure",
+    "PyECSError",
+    "EntityNotFoundError",
+    "ComponentNotFoundError",
+    "OperationFailedError",
 ]
 
 __version__ = "0.1.0"
