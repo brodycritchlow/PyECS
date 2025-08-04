@@ -6,8 +6,8 @@ from .Exceptions import (
 )
 
 __all__ = [
-    "PyECSError",
-    "EntityNotFoundError",
     "ComponentNotFoundError",
+    "EntityNotFoundError",
     "OperationFailedError",
+    "PyECSError",
 ]
