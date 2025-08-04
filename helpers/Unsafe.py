@@ -1,3 +1,5 @@
+# ruff: noqa: B010
+# pyright: reportAny=false, reportExplicitAny=false
 import functools
 from collections.abc import Callable
 from typing import Any
@@ -40,14 +42,14 @@ def generate_unsafe[**P, R](
                 raise exception_type(msg)
             return result
 
-        setattr(func, "_unsafe_version", (unsafe_name, unsafe_wrapper))  # noqa: B010
+        setattr(func, "_unsafe_version", (unsafe_name, unsafe_wrapper))
 
         return func
 
     return decorator
 
 
-def process_unsafe_methods(cls: type[Any]) -> type[Any]:
+def process_unsafe_methods[C](cls: type[C]) -> type[C]:
     """
     Process all methods decorated with @generate_unsafe and add their unsafe versions to the class.
     """
@@ -58,7 +60,7 @@ def process_unsafe_methods(cls: type[Any]) -> type[Any]:
     return cls
 
 
-def auto_unsafe(cls: type[Any]) -> type[Any]:
+def auto_unsafe[C](cls: type[C]) -> type[C]:
     """
     Class decorator that automatically generates unsafe versions for all methods
     that return StatusCodes.FAILURE.
