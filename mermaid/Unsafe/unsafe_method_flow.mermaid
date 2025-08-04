@@ -1,0 +1,15 @@
+flowchart TD
+    Start([User calls method_or_raise]) --> CallOriginal[Call original method]
+
+    CallOriginal --> CheckResult{Result == StatusCodes.FAILURE?}
+
+    CheckResult -->|No| ReturnValue[Return result value]
+    CheckResult -->|Yes| RaiseException[Raise configured exception]
+
+    RaiseException --> ExceptionType{Exception Type}
+
+    ExceptionType -->|ComponentNotFoundError| CompError([Component not found on entity])
+    ExceptionType -->|EntityNotFoundError| EntError([Entity does not exist])
+    ExceptionType -->|OperationFailedError| OpError([Operation failed])
+
+    ReturnValue --> Success([Success: Value returned])

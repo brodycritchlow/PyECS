@@ -1,0 +1,10 @@
+flowchart TD
+    Start([get_components_or_raise called with entity and component_types]) --> CallSafe[Call get_components internally]
+    
+    CallSafe --> CheckResult{Result == StatusCodes.FAILURE?}
+    
+    CheckResult -->|No| ReturnTuple[Return tuple of components]
+    CheckResult -->|Yes| RaiseException[Raise ComponentNotFoundError]
+    
+    ReturnTuple --> Success([Success: Components tuple returned])
+    RaiseException --> Error([Error: Exception raised])

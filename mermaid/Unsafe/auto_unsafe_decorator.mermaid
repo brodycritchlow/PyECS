@@ -1,0 +1,30 @@
+flowchart TD
+    Start([Class decorated with @auto_unsafe]) --> ScanMethods{Scan all class methods}
+    
+    ScanMethods --> ForEachMethod{For each method}
+    
+    ForEachMethod --> CheckAnnotations{Has return annotation with StatusCodes.FAILURE?}
+    
+    CheckAnnotations -->|No| NextMethod[Skip to next method]
+    CheckAnnotations -->|Yes| DetermineException{Check method name}
+    
+    DetermineException -->|Contains 'component'| SetComponentError[Exception = ComponentNotFoundError]
+    DetermineException -->|Contains 'entity'| SetEntityError[Exception = EntityNotFoundError]
+    DetermineException -->|Otherwise| SetOperationError[Exception = OperationFailedError]
+    
+    SetComponentError --> GenerateUnsafe[Call generate_unsafe decorator]
+    SetEntityError --> GenerateUnsafe
+    SetOperationError --> GenerateUnsafe
+    
+    GenerateUnsafe --> CreateWrapper[Create unsafe_wrapper function]
+    CreateWrapper --> SetAttribute[Set _unsafe_version attribute on method]
+    
+    SetAttribute --> NextMethod
+    NextMethod --> MoreMethods{More methods?}
+    
+    MoreMethods -->|Yes| ForEachMethod
+    MoreMethods -->|No| ProcessUnsafe[Call process_unsafe_methods]
+    
+    ProcessUnsafe --> AddToClass[Add all _or_raise methods to class]
+    
+    AddToClass --> End([Return decorated class])

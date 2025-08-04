@@ -1,0 +1,21 @@
+classDiagram
+    class PyECSError {
+        <<abstract>>
+        Base exception for all PyECS errors
+    }
+    
+    class ComponentNotFoundError {
+        Raised when a component is not found on an entity
+    }
+    
+    class EntityNotFoundError {
+        Raised when an entity does not exist or is not alive
+    }
+    
+    class OperationFailedError {
+        Raised when a general operation fails
+    }
+    
+    PyECSError <|-- ComponentNotFoundError
+    PyECSError <|-- EntityNotFoundError
+    PyECSError <|-- OperationFailedError

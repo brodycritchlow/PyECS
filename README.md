@@ -28,6 +28,7 @@ Full documentation is available at [brodycritchlow.github.io/pyecs](https://brod
 - **Pythonic** - Clean, intuitive API that follows Python conventions
 - **Pure Python** - No C extensions or complex dependencies
 - **Well-tested** - Comprehensive test suite with high coverage
+- **Exception-based error handling** - Optional unsafe operations that raise exceptions instead of returning status codes
 
 ### Quick Start
 

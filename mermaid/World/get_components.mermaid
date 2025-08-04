@@ -1,0 +1,31 @@
+flowchart TD
+    Start([get_components called with entity and component_types]) --> CheckSingle{len component_types == 1?}
+    
+    CheckSingle -->|Yes| WarnDeprecated[warn_deprecated: Use get_component for single component]
+    CheckSingle -->|No| CheckAlive{entity_manager.is_alive?}
+    
+    WarnDeprecated --> CallSingle[Call get_component with single type]
+    CallSingle --> CheckSingleResult{Result == FAILURE?}
+    CheckSingleResult -->|Yes| ReturnFailure1[Return FAILURE]
+    CheckSingleResult -->|No| WrapTuple[Wrap in tuple]
+    WrapTuple --> End1([End])
+    ReturnFailure1 --> End2([End])
+    
+    CheckAlive -->|No| ReturnFailure2[Return FAILURE]
+    CheckAlive -->|Yes| InitResult[Initialize empty result list]
+    
+    InitResult --> ForEachType{For each component_type}
+    
+    ForEachType --> GetComponent[Call component_storage.get_component]
+    GetComponent --> CheckResult{component == FAILURE?}
+    
+    CheckResult -->|Yes| ReturnFailure3[Return FAILURE]
+    CheckResult -->|No| AppendResult[Append component to result]
+    
+    AppendResult --> MoreTypes{More types?}
+    MoreTypes -->|Yes| ForEachType
+    MoreTypes -->|No| ReturnTuple[Return tuple of results]
+    
+    ReturnFailure2 --> End3([End])
+    ReturnFailure3 --> End4([End])
+    ReturnTuple --> End5([End])
