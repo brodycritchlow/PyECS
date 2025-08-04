@@ -31,18 +31,14 @@ class Query(object):
 
     def execute(self, storage_or_world: ComponentStorage | ECSWorld) -> list[Entity]:
         """Execute the query on either a ComponentStorage or ECSWorld instance."""
-        from pyecs.core.World import ECSWorld as _ECSWorld
-
         if isinstance(storage_or_world, ComponentStorage):
             warn_deprecated(
                 "Passing ComponentStorage directly is deprecated",
                 use_instead="query.execute(world)",
             )
             storage = storage_or_world
-        elif isinstance(storage_or_world, _ECSWorld):
-            storage = storage_or_world.component_storage
         else:
-            raise TypeError(f"Expected ComponentStorage or ECSWorld, got {type(storage_or_world)}")
+            storage = storage_or_world.component_storage
 
         matching: list[Entity] = []
 

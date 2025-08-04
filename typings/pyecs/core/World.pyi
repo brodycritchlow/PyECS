@@ -3,6 +3,7 @@ from pyecs.containers.Archetype import Archetype as Archetype
 from pyecs.containers.ComponentStorage import ComponentStorage as ComponentStorage
 from pyecs.helpers.Deprecation import warn_deprecated as warn_deprecated
 from pyecs.helpers.Statuses import StatusCodes as StatusCodes
+from pyecs.helpers.Unsafe import auto_unsafe as auto_unsafe
 from pyecs.managers.EntityManager import EntityManager as EntityManager
 from pyecs.managers.SystemManager import SystemManager as SystemManager
 from pyecs.processing.System import System as System

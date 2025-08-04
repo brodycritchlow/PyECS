@@ -6,13 +6,13 @@ from pyecs.containers.Archetype import Archetype
 from pyecs.containers.ComponentStorage import ComponentStorage
 from pyecs.helpers.Deprecation import warn_deprecated
 from pyecs.helpers.Statuses import StatusCodes
-from pyecs.helpers.Unsafe import auto_unsafe
+from pyecs.helpers.Unsafe import auto_unsafe  # pyright: ignore[reportUnknownVariableType]
 from pyecs.managers.EntityManager import EntityManager
 from pyecs.managers.SystemManager import SystemManager
 from pyecs.processing.System import System
 
 
-@auto_unsafe
+@auto_unsafe  # pyright: ignore[reportUntypedClassDecorator]
 class ECSWorld(object):
     def __init__(self):
         self.entity_manager: EntityManager = EntityManager()
