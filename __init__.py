@@ -1,7 +1,12 @@
 import os
+import warnings
 
-if not os.environ.get('BEARTYPE_DISABLE'):
+if not os.environ.get("PYECS_DISABLE_WARNINGS"):
+    warnings.filterwarnings("default", category=DeprecationWarning, module="pyecs")
+
+if not os.environ.get("BEARTYPE_DISABLE"):
     from beartype.claw import beartype_this_package
+
     beartype_this_package()
 
 from .common.Types import UUID4, Component, Entity, SuccessOrFailure

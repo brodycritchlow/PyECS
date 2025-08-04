@@ -2,6 +2,7 @@ from typing import Literal
 
 from pyecs.common.Types import UUID4, Component, Entity, SuccessOrFailure
 from pyecs.containers.Archetype import Archetype
+from pyecs.helpers.Deprecation import deprecated_external
 from pyecs.helpers.Statuses import StatusCodes
 
 
@@ -43,6 +44,11 @@ class ComponentStorage(object):
             current_archetype.components[component.__class__][entity_index] = component
             return StatusCodes.COMPONENT_UPDATED
 
+    @deprecated_external(
+        reason="You should not be using direct component storage calls",
+        use_instead="world.remove_component",
+        allowed_modules=["pyecs.core"],
+    )
     def remove_component[T: Component](
         self, entity: Entity, component_type: type[T]
     ) -> Literal[StatusCodes.COMPONENT_REMOVED, StatusCodes.FAILURE]:
