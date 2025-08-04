@@ -19,7 +19,7 @@ PyECS is a high-performance, type-safe Entity Component System (ECS) implementat
 
 ### Documentation
 
-Full documentation is available at [brodycritchlow.github.io/pyecs](https://brodycritchlow.github.io/pyecs/)
+Full documentation is available at [brodycritchlow.github.io/pyecs](https://brodycritchlow.github.io/PyECS/index.html)
 
 ### Features
 
@@ -80,4 +80,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Type safety powered by [beartype](https://github.com/beartype/beartype)
 
 ---
+
 
