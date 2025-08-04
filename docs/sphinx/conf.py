@@ -29,6 +29,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_autodoc_typehints",
     "myst_parser",
+    "sphinxcontrib.mermaid",
 ]
 
 # MyST parser configuration
@@ -36,6 +37,7 @@ myst_enable_extensions = [
     "deflist",
     "tasklist",
     "html_image",
+    "colon_fence",
 ]
 
 # Autodoc configuration
@@ -77,4 +79,12 @@ language = "en"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "sphinx_book_theme"
-html_static_path = ["_static"]
+html_theme_options = {
+    "repository_url": "https://github.com/brodycritchlow/pyecs",
+    "use_repository_button": True,
+    "use_issues_button": True,
+}
+
+# Mermaid configuration
+mermaid_output_format = "raw"
+mermaid_version = "11.2.0"

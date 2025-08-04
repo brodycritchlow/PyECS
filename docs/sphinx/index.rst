@@ -50,5 +50,6 @@ Quick Start
 
    getting_started
    tutorial
+   architecture
    api
 
