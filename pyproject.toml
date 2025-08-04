@@ -28,12 +28,18 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
     "mypy>=1.0",
     "ruff>=0.1.0",
     "basedpyright>=1.0.0",
-    "setuptools>=61.0",
+    "setuptools>=80.9.0",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "sphinx-autodoc-typehints>=3.2.0",
+    "sphinx-rtd-theme>=3.0.2",
+    "myst-parser>=4.0.1",
 ]
 
 [project.urls]
@@ -83,3 +89,4 @@ python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
+
