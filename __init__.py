@@ -27,17 +27,17 @@ __all__ = [
     "UUID4",
     "Archetype",
     "Component",
+    "ComponentNotFoundError",
     "ComponentStorage",
     "ECSWorld",
     "Entity",
     "EntityManager",
+    "EntityNotFoundError",
+    "OperationFailedError",
+    "PyECSError",
     "Query",
     "StatusCodes",
     "SuccessOrFailure",
-    "PyECSError",
-    "EntityNotFoundError",
-    "ComponentNotFoundError",
-    "OperationFailedError",
 ]
 
 __version__ = "0.1.0"

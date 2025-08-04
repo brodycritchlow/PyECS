@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from typing import overload
+from typing import TYPE_CHECKING, overload
 
 from pyecs.common.Types import Component, Entity
 from pyecs.containers.ComponentStorage import ComponentStorage
-from pyecs.core.World import ECSWorld
 from pyecs.helpers.Deprecation import warn_deprecated
+
+if TYPE_CHECKING:
+    from pyecs.core.World import ECSWorld
 
 
 class Query(object):
@@ -29,14 +31,18 @@ class Query(object):
 
     def execute(self, storage_or_world: ComponentStorage | ECSWorld) -> list[Entity]:
         """Execute the query on either a ComponentStorage or ECSWorld instance."""
+        from pyecs.core.World import ECSWorld as _ECSWorld
+
         if isinstance(storage_or_world, ComponentStorage):
             warn_deprecated(
                 "Passing ComponentStorage directly is deprecated",
                 use_instead="query.execute(world)",
             )
             storage = storage_or_world
-        else:
+        elif isinstance(storage_or_world, _ECSWorld):
             storage = storage_or_world.component_storage
+        else:
+            raise TypeError(f"Expected ComponentStorage or ECSWorld, got {type(storage_or_world)}")
 
         matching: list[Entity] = []
 

@@ -3,11 +3,11 @@ from .Statuses import StatusCodes
 from .Unsafe import auto_unsafe, generate_unsafe, process_unsafe_methods
 
 __all__ = [
+    "StatusCodes",
+    "auto_unsafe",
     "deprecated_ecs",
     "deprecated_external",
-    "warn_deprecated",
-    "StatusCodes",
     "generate_unsafe",
     "process_unsafe_methods",
-    "auto_unsafe",
+    "warn_deprecated",
 ]

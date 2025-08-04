@@ -26,11 +26,11 @@ def generate_unsafe[**P, R](
 
         # This automatically generates:
         # Safe version: component = world.get_component(entity, Position)  # Returns FAILURE on error
-        # Unsafe version: component = world.get_component_unsafe(entity, Position)  # Raises exception on error
+        # Strict version: component = world.get_component_or_raise(entity, Position)  # Raises exception on error
     """
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-        unsafe_name = f"{func.__name__}_unsafe"
+        unsafe_name = f"{func.__name__}_or_raise"
 
         @functools.wraps(func)
         def unsafe_wrapper(*args: P.args, **kwargs: P.kwargs) -> Any:
@@ -40,7 +40,7 @@ def generate_unsafe[**P, R](
                 raise exception_type(msg)
             return result
 
-        func._unsafe_version = (unsafe_name, unsafe_wrapper)  # type: ignore[attr-defined]
+        setattr(func, "_unsafe_version", (unsafe_name, unsafe_wrapper))  # noqa: B010
 
         return func
 
