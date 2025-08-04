@@ -1,0 +1,38 @@
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY pyproject.toml .
+COPY setup.py .
+COPY README.md .
+
+COPY *.py ./
+COPY common ./common
+COPY containers ./containers
+COPY core ./core
+COPY helpers ./helpers
+COPY managers ./managers
+COPY processing ./processing
+COPY querying ./querying
+COPY examples ./examples
+
+COPY __init__.py .
+
+RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir numpy matplotlib seaborn
+
+RUN mkdir -p /app/benchmark_results
+
+ENV PYTHONUNBUFFERED=1
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV BEARTYPE_DISABLE=1
+
+CMD ["python", "run_benchmarks.py", "--quick"]

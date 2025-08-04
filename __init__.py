@@ -1,7 +1,8 @@
-# ruff: noqa: E402
-from beartype.claw import beartype_this_package
+import os
 
-beartype_this_package()
+if not os.environ.get('BEARTYPE_DISABLE'):
+    from beartype.claw import beartype_this_package
+    beartype_this_package()
 
 from .common.Types import UUID4, Component, Entity, SuccessOrFailure
 from .containers.Archetype import Archetype

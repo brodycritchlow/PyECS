@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  benchmark-high:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.benchmark
+    container_name: pyecs-benchmark-high
+    volumes:
+      - ../benchmark_results:/app/benchmark_results
+    command: ["python", "run_benchmarks.py", "--quick", "--output", "/app/benchmark_results/high_perf.json"]
+    environment:
+      - SCENARIO=high_performance
+
+  benchmark-medium:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.benchmark
+    container_name: pyecs-benchmark-medium
+    volumes:
+      - ../benchmark_results:/app/benchmark_results
+    command: ["python", "run_benchmarks.py", "--quick", "--output", "/app/benchmark_results/medium_perf.json"]
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    environment:
+      - SCENARIO=medium_performance
+
+  benchmark-low:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.benchmark
+    container_name: pyecs-benchmark-low
+    volumes:
+      - ../benchmark_results:/app/benchmark_results
+    command: ["python", "run_benchmarks.py", "--quick", "--output", "/app/benchmark_results/low_perf.json"]
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    environment:
+      - SCENARIO=low_performance
+
+  benchmark-stress:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.benchmark
+    container_name: pyecs-benchmark-stress
+    volumes:
+      - ../benchmark_results:/app/benchmark_results
+    command: ["python", "run_benchmarks.py", "--ultra-quick", "--output", "/app/benchmark_results/stress_perf.json"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    environment:
+      - SCENARIO=stress_test
+
+  visualizer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.benchmark
+    container_name: pyecs-visualizer
+    volumes:
+      - ../benchmark_results:/app/benchmark_results
+    command: ["python", "benchmark_visualizer.py", "--compare", 
+              "/app/benchmark_results/high_perf.json",
+              "/app/benchmark_results/medium_perf.json", 
+              "/app/benchmark_results/low_perf.json",
+              "/app/benchmark_results/stress_perf.json",
+              "--output", "/app/benchmark_results/comparison"]
+    depends_on:
+      - benchmark-high
+      - benchmark-medium
+      - benchmark-low
+      - benchmark-stress
