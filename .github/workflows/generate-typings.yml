@@ -1,0 +1,56 @@
+name: Generate Type Stubs
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.py'
+      - '!typings/**'
+      - '!examples/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-stubs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install mypy
+        pip install -e .
+    
+    - name: Generate type stubs
+      run: |
+        rm -rf typings
+        stubgen -p pyecs -o typings
+    
+    - name: Check for changes
+      id: check_changes
+      run: |
+        git add typings/
+        if git diff --staged --quiet; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Commit and push if changed
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git commit -m "chore: update type stubs [skip ci]"
+        git push

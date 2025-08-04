@@ -54,6 +54,7 @@ packages = ["pyecs", "pyecs.common", "pyecs.containers", "pyecs.core", "pyecs.he
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+extend-exclude = ["docker/*"]
 
 [tool.ruff.lint]
 select = [
@@ -75,19 +76,15 @@ ignore = [
 ]
 
 [tool.basedpyright]
-pythonVersion = "3.12"
+pythonVersion = "3.13"
 typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
 reportPrivateUsage = false
-include = ["**/*.py"]
-executionEnvironments = [
-    { root = ".", pythonVersion = "3.12", extraPaths = ["."] }
-]
+exclude = ["**/docker/**", "examples/**", "build/**", "dist/**", "*.egg-info/**"]
 
 [tool.mypy]
 python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-

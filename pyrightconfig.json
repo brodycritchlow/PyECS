@@ -1,9 +1,20 @@
 {
   "include": ["**/*.py"],
-  "pythonVersion": "3.12",
+  "exclude": [
+    ".venv",
+    "venv",
+    "examples",
+    "docker",
+    "build",
+    "dist",
+    "*.egg-info",
+    "typings"
+  ],
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.13",
   "venvPath": ".",
   "venv": ".venv",
-  "extraPaths": [".."],
-  "reportMissingImports": true,
-  "reportMissingTypeStubs": false
+  "extraPaths": ["."],
+  "stubPath": "typings",
+  "reportMissingModuleSource": false
 }
