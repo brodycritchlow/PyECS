@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  lint-and-type-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff basedpyright
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -e .
+          python -c "import pyecs; print(f'PyECS installed at: {pyecs.__file__}')"
+
+      - name: Run Ruff
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Generate Ruff fixes report
+        if: failure() && github.event_name == 'pull_request'
+        id: ruff_diff
+        run: |
+          COMMENT_FILE=$(mktemp)
+
+          echo "## Ruff Suggested Fixes" >> $COMMENT_FILE
+          echo "Run these commands locally to apply the fixes:" >> $COMMENT_FILE
+          echo '```bash' >> $COMMENT_FILE
+          echo "ruff check . --fix" >> $COMMENT_FILE
+          echo "ruff format ." >> $COMMENT_FILE
+          echo '```' >> $COMMENT_FILE
+
+          echo "### Linting fixes:" >> $COMMENT_FILE
+          echo '```diff' >> $COMMENT_FILE
+          ruff check . --fix --diff >> $COMMENT_FILE 2>&1 || true
+          echo '```' >> $COMMENT_FILE
+
+          echo "### Formatting fixes:" >> $COMMENT_FILE
+          echo '```diff' >> $COMMENT_FILE
+          ruff format . --diff >> $COMMENT_FILE 2>&1 || true
+          echo '```' >> $COMMENT_FILE
+
+          echo "comment_body<<EOF" >> $GITHUB_OUTPUT
+          cat $COMMENT_FILE >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment PR with fixes
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const comment = process.env.RUFF_COMMENT;
+
+            if (comment && comment.trim()) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              })
+            }
+        env:
+          RUFF_COMMENT: ${{ steps.ruff_diff.outputs.comment_body }}
+
+      - name: Run basedpyright
+        run: |
+          basedpyright .
