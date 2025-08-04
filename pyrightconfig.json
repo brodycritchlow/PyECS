@@ -10,9 +10,11 @@
     "*.egg-info",
     "typings"
   ],
-  "typeCheckingMode": "strict",
+  "typeCheckingMode": "all",
   "pythonVersion": "3.12",
   "extraPaths": ["."],
   "stubPath": "typings",
-  "reportMissingModuleSource": false
+
+  "reportMissingModuleSource": false,
+  "reportMissingTypeStubs": false
 }
