@@ -70,6 +70,16 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/sphinx/_build/
+docs/sphinx/_static/
+docs/sphinx/_templates/
+docs/sphinx/generated/
+
+# Docusaurus
+docs/website/node_modules/
+docs/website/.docusaurus/
+docs/website/.cache-loader/
+docs/website/build/
 
 # PyBuilder
 .pybuilder/
