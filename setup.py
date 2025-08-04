@@ -1,3 +1,3 @@
-from setuptools import setup  # pyright: ignore[reportMissingModuleSource]
+from setuptools import setup
 
 setup()  # pyright: ignore[reportUnusedCallResult]
