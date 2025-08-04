@@ -52,5 +52,5 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git commit -m "chore: update type stubs [skip ci]"
+        git commit -m "chore: update type stubs"
         git push
