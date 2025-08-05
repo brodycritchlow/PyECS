@@ -6,27 +6,43 @@ This tutorial will walk you through building a simple game with PyECS.
 Creating Components
 -------------------
 
-Components in PyECS are simple Python classes that store data. They don't need to inherit from any base class:
+Components in PyECS are simple Python classes that store data. They don't need to inherit from any base class. We recommend using dataclasses for cleaner syntax:
 
 .. code-block:: python
 
-   class Position:
-       def __init__(self, x: float, y: float):
-           self.x = x
-           self.y = y
-
-   class Velocity:
-       def __init__(self, x: float, y: float):
-           self.x = x
-           self.y = y
+   from dataclasses import dataclass
    
-   class Health:
-       def __init__(self, current: int, max_health: int):
-           self.current = current
-           self.max_health = max_health
+   @dataclass
+   class Position:
+       x: float
+       y: float
 
+   @dataclass
+   class Velocity:
+       x: float
+       y: float
+   
+   @dataclass
+   class Health:
+       current: int
+       max_health: int
+
+   @dataclass
    class PlayerTag:
        pass
+
+**Tip:** You can make components immutable by using ``frozen=True``:
+
+.. code-block:: python
+
+   @dataclass(frozen=True)
+   class Position:
+       x: float
+       y: float
+   
+   # This creates immutable components that cannot be modified after creation
+   # pos = Position(10, 20)
+   # pos.x = 30  # ❌ Raises FrozenInstanceError
 
 **See Also:** :doc:`architecture` - :ref:`World.add_component <world-add-component>`
 
@@ -134,3 +150,55 @@ PyECS uses an archetype-based storage system. An archetype is a unique combinati
    print(f"Found {len(entities)} entities with Position and Velocity")
 
 **See Also:** :doc:`architecture` - :ref:`Query.execute <query-execute>`, :ref:`Archetype Operations <archetype-operations>`
+
+Working with Immutable Components
+----------------------------------
+
+While mutable components work well for most use cases, immutable components can provide additional safety and predictability:
+
+.. code-block:: python
+
+   from dataclasses import dataclass, replace
+   
+   @dataclass(frozen=True)
+   class Position:
+       x: float
+       y: float
+       
+       def moved_by(self, dx: float, dy: float) -> 'Position':
+           """Returns a new Position moved by the given deltas."""
+           return Position(self.x + dx, self.y + dy)
+   
+   # Using immutable components in a system
+   class ImmutableMovementSystem:
+       def update(self, world, dt: float) -> None:
+           query = Query().with_components(Position, Velocity)
+           entities = query.execute(world)
+           
+           for entity in entities:
+               pos = world.get_component(entity, Position)
+               vel = world.get_component(entity, Velocity)
+               
+               # Create a new position instead of modifying
+               new_pos = pos.moved_by(vel.x * dt, vel.y * dt)
+               
+               # Replace the component
+               world.remove_component(entity, Position)
+               world.add_component(entity, new_pos)
+
+**Benefits of Immutable Components:**
+
+- **Thread Safety**: Immutable objects can be safely shared between threads
+- **Predictability**: Components can't be accidentally modified elsewhere
+- **Debugging**: Easier to track when and how values change
+- **Hashability**: Can be used as dictionary keys or in sets
+
+**Using dataclass replace():**
+
+.. code-block:: python
+
+   # The replace() function creates a new instance with some fields updated
+   old_pos = Position(10, 20)
+   new_pos = replace(old_pos, x=15)  # Position(x=15, y=20)
+
+Choose between mutable and immutable components based on your needs. Mutable components are simpler for frequent updates, while immutable components provide better safety guarantees.

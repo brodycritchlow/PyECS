@@ -32,17 +32,18 @@ Here's a minimal example to get you started:
 
 .. code-block:: python
 
+   from dataclasses import dataclass
    from pyecs import ECSWorld
    
+   @dataclass
    class Position:
-       def __init__(self, x=0, y=0):
-           self.x = x
-           self.y = y
+       x: float = 0
+       y: float = 0
    
+   @dataclass
    class Velocity:
-       def __init__(self, dx=0, dy=0):
-           self.dx = dx
-           self.dy = dy
+       dx: float = 0
+       dy: float = 0
    
    class MovementSystem:
        def update(self, world, dt):

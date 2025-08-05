@@ -28,23 +28,24 @@ Quick Start
 
 .. code-block:: python
 
+   from dataclasses import dataclass
    from pyecs import ECSWorld
    from pyecs.querying.Query import Query
    
+   @dataclass
    class Position:
-       def __init__(self, x=0, y=0):
-           self.x = x
-           self.y = y
+       x: float = 0
+       y: float = 0
    
+   @dataclass
    class Velocity:
-       def __init__(self, x=0, y=0):
-           self.x = x
-           self.y = y
+       x: float = 0
+       y: float = 0
    
    class MovementSystem:
        def update(self, world, dt):
            query = Query().with_components(Position, Velocity)
-           entities = query.execute(world.component_storage)
+           entities = query.execute(world)
            
            for entity in entities:
                pos = world.get_component(entity, Position)
