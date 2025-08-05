@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, overload
+from typing import overload
 
 from pyecs.common.Types import Component, Entity
 from pyecs.containers.ComponentStorage import ComponentStorage
+from pyecs.core.World import ECSWorld
 from pyecs.helpers.Deprecation import warn_deprecated
-
-if TYPE_CHECKING:
-    from pyecs.core.World import ECSWorld
 
 
 class Query(object):
