@@ -1,17 +1,21 @@
 flowchart TD
-    Start([remove_entity called with entity]) --> CheckExists{Entity in entities list?}
+    Start([remove_entity called with entity]) --> CheckExists{Entity in entity_indices dict?}
     
     CheckExists -->|No| ReturnFailure[Return FAILURE]
-    CheckExists -->|Yes| FindIndex[Find entity index in list]
+    CheckExists -->|Yes| GetIndex[Get entity_index from dict - O1 lookup]
     
-    FindIndex --> RemoveFromEntities[Remove entity from entities list]
-    RemoveFromEntities --> LoopComponentLists[Loop through all component lists]
+    GetIndex --> CheckLast{Is entity_index == last_index?}
     
-    LoopComponentLists --> DeleteAtIndex[Delete component at entity_index]
-    DeleteAtIndex --> MoreLists{More component lists?}
+    CheckLast -->|No| SwapWithLast[Swap entity with last entity in lists]
+    SwapWithLast --> UpdateLastEntityIndex[Update last entity's index in dict]
+    UpdateLastEntityIndex --> SwapComponents[Swap components in all component lists]
+    SwapComponents --> RemoveLast
     
-    MoreLists -->|Yes| LoopComponentLists
-    MoreLists -->|No| ReturnSuccess[Return SUCCESS]
+    CheckLast -->|Yes| RemoveLast[Pop last entity from entities list]
+    RemoveLast --> RemoveFromDict[Delete entity from entity_indices dict]
+    RemoveFromDict --> PopComponents[Pop last element from all component lists]
+    
+    PopComponents --> ReturnSuccess[Return SUCCESS]
     
     ReturnFailure --> End1([End])
     ReturnSuccess --> End2([End])

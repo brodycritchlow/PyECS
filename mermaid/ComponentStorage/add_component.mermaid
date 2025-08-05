@@ -8,14 +8,14 @@ flowchart TD
     GetArchetype --> CheckComponentType{Component type in mask?}
     
     CheckComponentType -->|No| CreateNewMask[Create new mask with component type]
-    CheckComponentType -->|Yes| GetEntityIndex[Get entity index in archetype]
+    CheckComponentType -->|Yes| GetEntityIndex[Get entity_index from archetype.entity_indices - O1 lookup]
     
     CreateNewMask --> GetComponents[Get all entity components]
     GetComponents --> AppendComponent[Append new component to list]
     AppendComponent --> MoveEntity[Call move_entity_to_archetype with new mask]
     MoveEntity --> ReturnAdded[Return COMPONENT_ADDED]
     
-    GetEntityIndex --> UpdateComponent[Update component at entity index]
+    GetEntityIndex --> UpdateComponent[Update component at entity_index in component array]
     UpdateComponent --> ReturnUpdated[Return COMPONENT_UPDATED]
     
     ReturnFailure --> End1([End])

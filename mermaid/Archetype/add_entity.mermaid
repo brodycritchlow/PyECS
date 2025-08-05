@@ -1,11 +1,12 @@
 flowchart TD
-    Start([add_entity called with entity and components list]) --> CheckExists{Entity in entities list?}
+    Start([add_entity called with entity and components list]) --> CheckExists{Entity in entity_indices dict?}
     
     CheckExists -->|Yes| ReturnFailure[Return FAILURE]
-    CheckExists -->|No| AppendEntity[Append entity to entities list]
+    CheckExists -->|No| CalcIndex["Calculate entity_index as len(entities)"]
     
-    AppendEntity --> CalcIndex[Calculate entity_index as length - 1]
-    CalcIndex --> LoopComponents[Loop through components]
+    CalcIndex --> AppendEntity[Append entity to entities list]
+    AppendEntity --> AddToDict["Add entity->entity_index to entity_indices dict"]
+    AddToDict --> LoopComponents[Loop through components]
     
     LoopComponents --> GetCompType[Get component.__class__]
     GetCompType --> CheckTypeExists{Component type in self.components?}
