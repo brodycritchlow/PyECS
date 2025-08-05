@@ -1,0 +1,40 @@
+[run]
+source = .
+include =
+    pyecs/*
+    *.py
+omit =
+    tests/*
+    */tests/*
+    test_*
+    */test_*
+    */__init__.py
+    __init__.py
+    */Types.py
+    common/Types.py
+    setup.py
+    */site-packages/*
+    */__pycache__/*
+    */venv/*
+    */.venv/*
+    docker/*
+    docs/*
+    examples/*
+    build/*
+    dist/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+[html]
+directory = htmlcov
