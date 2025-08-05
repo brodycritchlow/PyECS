@@ -20,9 +20,10 @@ class MovementSystem(System):
         self.last_dt = dt
 
         from pyecs.querying.Query import Query
+
         query = Query().with_components(Position, Velocity)
         entities = query.execute(world)
-        
+
         for entity in entities:
             pos = world.get_component(entity, Position)
             vel = world.get_component(entity, Velocity)
@@ -43,6 +44,7 @@ class CountingSystem(System):
 
     def update(self, world: ECSWorld, dt: float):
         from pyecs.querying.Query import Query
+
         query = Query().with_components(Position)
         entities = query.execute(world)
         self.entity_count = len(entities)
@@ -121,7 +123,7 @@ class TestSystemQueries:
         assert system.entity_count == 2
 
     def test_query_entities_with_multiple_components(self, world):
-        system = MovementSystem()
+        _ = MovementSystem()
 
         entity1 = world.create_entity()
         entity2 = world.create_entity()
@@ -135,6 +137,7 @@ class TestSystemQueries:
         world.add_component(entity3, Velocity())
 
         from pyecs.querying.Query import Query
+
         query = Query().with_components(Position, Velocity)
         entities = query.execute(world)
 
@@ -142,12 +145,13 @@ class TestSystemQueries:
         assert entity1 in entities
 
     def test_query_entities_returns_empty_for_no_matches(self, world):
-        system = MovementSystem()
+        _ = MovementSystem()
 
         entity = world.create_entity()
         world.add_component(entity, Position())
 
         from pyecs.querying.Query import Query
+
         query = Query().with_components(Velocity)
         entities = query.execute(world)
 

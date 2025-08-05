@@ -137,7 +137,9 @@ class TestWorldOrRaiseMethods:
     def test_get_component_or_raise_raises_when_component_missing(self, world):
         entity = world.create_entity()
 
-        with pytest.raises(ComponentNotFoundError, match="Component operation 'get_component' failed"):
+        with pytest.raises(
+            ComponentNotFoundError, match="Component operation 'get_component' failed"
+        ):
             world.get_component_or_raise(entity, Position)
 
     def test_get_component_or_raise_raises_when_entity_dead(self, world):
@@ -145,7 +147,9 @@ class TestWorldOrRaiseMethods:
         world.add_component(entity, Position())
         world.destroy_entity(entity)
 
-        with pytest.raises(ComponentNotFoundError, match="Component operation 'get_component' failed"):
+        with pytest.raises(
+            ComponentNotFoundError, match="Component operation 'get_component' failed"
+        ):
             world.get_component_or_raise(entity, Position)
 
     def test_get_components_or_raise_succeeds_when_all_components_exist(self, world):
@@ -163,7 +167,9 @@ class TestWorldOrRaiseMethods:
         entity = world.create_entity()
         world.add_component(entity, Position())
 
-        with pytest.raises(ComponentNotFoundError, match="Component operation 'get_components' failed"):
+        with pytest.raises(
+            ComponentNotFoundError, match="Component operation 'get_components' failed"
+        ):
             world.get_components_or_raise(entity, Position, Health)
 
     def test_get_components_or_raise_raises_when_entity_dead(self, world):
@@ -171,5 +177,7 @@ class TestWorldOrRaiseMethods:
         world.add_component(entity, Position())
         world.destroy_entity(entity)
 
-        with pytest.raises(ComponentNotFoundError, match="Component operation 'get_components' failed"):
+        with pytest.raises(
+            ComponentNotFoundError, match="Component operation 'get_components' failed"
+        ):
             world.get_components_or_raise(entity, Position)

@@ -25,10 +25,12 @@ class TestQueryBuilder:
         assert len(query._without) == 2
 
     def test_chained_query_building(self):
-        query = (Query()
-                .with_components(Position, Velocity)
-                .without_components(Health)
-                .with_components(Name))
+        query = (
+            Query()
+            .with_components(Position, Velocity)
+            .without_components(Health)
+            .with_components(Name)
+        )
 
         assert len(query._with) == 3
         assert Position in query._with
@@ -37,9 +39,7 @@ class TestQueryBuilder:
         assert Health in query._without
 
     def test_duplicate_components_not_added(self):
-        query = (Query()
-                .with_components(Position)
-                .with_components(Position, Velocity))
+        query = Query().with_components(Position).with_components(Position, Velocity)
 
         assert len(query._with) == 2
 

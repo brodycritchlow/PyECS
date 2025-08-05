@@ -158,7 +158,7 @@ class TestArchetypeIteration:
 
         for i in range(3):
             entity = str(uuid.uuid4())
-            pos = Position(i, i*2, i*3)
+            pos = Position(i, i * 2, i * 3)
             positions.append(pos)
             archetype.add_entity(entity, [pos, Velocity()])
 

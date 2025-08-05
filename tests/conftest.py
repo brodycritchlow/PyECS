@@ -1,4 +1,5 @@
 import os
+
 os.environ["BEARTYPE_DISABLE"] = "1"
 
 from dataclasses import dataclass
@@ -40,12 +41,7 @@ def world():
 
 @pytest.fixture
 def components():
-    return {
-        'Position': Position,
-        'Velocity': Velocity,
-        'Health': Health,
-        'Name': Name
-    }
+    return {"Position": Position, "Velocity": Velocity, "Health": Health, "Name": Name}
 
 
 @pytest.fixture
