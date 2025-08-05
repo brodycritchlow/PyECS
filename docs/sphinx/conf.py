@@ -59,6 +59,8 @@ autodoc_typehints = "both"
 autodoc_type_aliases = {
     "Entity": "pyecs.common.Types.Entity",
     "Component": "pyecs.common.Types.Component",
+    "UUID4": "pyecs.common.Types.UUID4",
+    "SuccessOrFailure": "pyecs.common.Types.SuccessOrFailure",
 }
 
 # Intersphinx mapping
@@ -83,7 +85,11 @@ html_theme_options = {
     "repository_url": "https://github.com/brodycritchlow/pyecs",
     "use_repository_button": True,
     "use_issues_button": True,
+    "home_page_in_toc": False,
 }
+
+# Set the master doc to getting_started
+master_doc = "getting_started"
 
 # Mermaid configuration
 mermaid_output_format = "raw"

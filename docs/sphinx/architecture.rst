@@ -9,6 +9,8 @@ Core Components
 World Operations
 ~~~~~~~~~~~~~~~~
 
+.. _world-create-entity:
+
 create_entity
 ^^^^^^^^^^^^^
 
@@ -18,6 +20,8 @@ create_entity_or_raise
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. mermaid:: ../../mermaid/World/create_entity_or_raise.mermaid
+
+.. _world-get-component:
 
 get_component
 ^^^^^^^^^^^^^
@@ -39,20 +43,28 @@ get_components_or_raise
 
 .. mermaid:: ../../mermaid/World/get_components_or_raise.mermaid
 
+.. _world-add-component:
+
 add_component
 ^^^^^^^^^^^^^
 
 .. mermaid:: ../../mermaid/World/add_component.mermaid
+
+.. _world-remove-component:
 
 remove_component
 ^^^^^^^^^^^^^^^^
 
 .. mermaid:: ../../mermaid/World/remove_component.mermaid
 
+.. _world-destroy-entity:
+
 destroy_entity
 ^^^^^^^^^^^^^^
 
 .. mermaid:: ../../mermaid/World/destroy_entity.mermaid
+
+.. _world-add-system:
 
 add_system
 ^^^^^^^^^^
@@ -63,6 +75,8 @@ remove_system
 ^^^^^^^^^^^^^
 
 .. mermaid:: ../../mermaid/World/remove_system.mermaid
+
+.. _world-update:
 
 update
 ^^^^^^
@@ -75,6 +89,8 @@ Query System
 Query Construction
 ^^^^^^^^^^^^^^^^^^
 
+.. _query-with-components:
+
 with_components
 """""""""""""""
 
@@ -84,6 +100,8 @@ without_components
 """"""""""""""""""
 
 .. mermaid:: ../../mermaid/Query/without_components.mermaid
+
+.. _query-execute:
 
 Query Execution
 ^^^^^^^^^^^^^^^
@@ -130,6 +148,8 @@ remove_entity
 """""""""""""
 
 .. mermaid:: ../../mermaid/ComponentStorage/remove_entity.mermaid
+
+.. _archetype-operations:
 
 Archetype Operations
 ^^^^^^^^^^^^^^^^^^^^
@@ -200,6 +220,8 @@ unregister_system
 """""""""""""""""
 
 .. mermaid:: ../../mermaid/SystemManager/unregister_system.mermaid
+
+.. _systemmanager-update-all:
 
 update_all
 """"""""""
