@@ -40,7 +40,7 @@ class ComponentStorage(object):
 
             return StatusCodes.COMPONENT_ADDED
         else:
-            entity_index = current_archetype.entities.index(entity)
+            entity_index: int = current_archetype.entity_indices[entity]
             current_archetype.components[component.__class__][entity_index] = component
             return StatusCodes.COMPONENT_UPDATED
 

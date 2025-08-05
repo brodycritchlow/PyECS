@@ -1,10 +1,11 @@
 from collections.abc import Iterator
 from pyecs.common.Types import Component as Component, Entity as Entity, SuccessOrFailure as SuccessOrFailure, UUID4 as UUID4
-from pyecs.helpers.Statuses import StatusCodes as StatusCodes
+from pyecs.helpers.Statuses import StatusCodes
 from typing import Literal
 
 class Archetype:
     entities: list[UUID4]
+    entity_indices: dict[UUID4, int]
     components: dict[type, list[Component]]
     def __init__(self) -> None: ...
     def add_entity(self, entity: Entity, components: list[Component]) -> SuccessOrFailure: ...

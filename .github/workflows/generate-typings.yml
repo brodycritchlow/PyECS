@@ -34,7 +34,6 @@ jobs:
     
     - name: Generate type stubs
       run: |
-        rm -rf typings
         stubgen -p pyecs -o typings
     
     - name: Check for changes

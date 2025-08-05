@@ -1,7 +1,6 @@
 from pyecs.common.Types import Component as Component, Entity as Entity, SuccessOrFailure as SuccessOrFailure, UUID4 as UUID4
-from pyecs.containers.Archetype import Archetype as Archetype
-from pyecs.helpers.Deprecation import deprecated_external as deprecated_external
-from pyecs.helpers.Statuses import StatusCodes as StatusCodes
+from pyecs.containers.Archetype import Archetype
+from pyecs.helpers.Statuses import StatusCodes
 from typing import Literal
 
 class ComponentStorage:
